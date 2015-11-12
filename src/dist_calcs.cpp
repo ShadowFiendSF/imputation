@@ -11,7 +11,7 @@ using namespace Rcpp;
 //' @param q An integer specifying the which norm to take the L-q distance of.
 //' @return a scalar
 // [[Rcpp::export]]
-double dist_q (NumericVector x, NumericVector y, int& q) {
+double dist_q (const NumericVector x, const NumericVector y, const int& q) {
   int nx= x.size(), ny = y.size();
 
   if (nx != ny) {
@@ -40,7 +40,7 @@ double dist_q (NumericVector x, NumericVector y, int& q) {
 //' @param q An integer specifying the which norm to take the L-q distance of.
 //' @return a numeric vector of length \code{nrow(x) - 1}
 // [[Rcpp::export]]
-NumericVector dist_q_matrix (NumericVector& x_ref, NumericMatrix& x_rest, int& q) {
+NumericVector dist_q_matrix (const NumericVector& x_ref, NumericMatrix& x_rest, const int& q) {
   int nr = x_rest.nrow();
   NumericVector out(nr);
   for (int k = 0; k < nr; k++) {

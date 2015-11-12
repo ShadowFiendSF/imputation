@@ -26,7 +26,6 @@ dist_q_matrix <- function(x_ref, x_rest, q) {
 #' @description Sort the vector by the values
 #' Return the indexes of the sorted vector according to original
 #' @param values The vector that should be sorted
-NULL
 
 weighted_mean <- function(x, w) {
     .Call('imputation_weighted_mean', PACKAGE = 'imputation', x, w)
@@ -58,10 +57,6 @@ int_rownames <- function(x) {
 
 rowname_match <- function(rowname_vec, rowID) {
     .Call('imputation_rowname_match', PACKAGE = 'imputation', rowname_vec, rowID)
-}
-
-which <- function(x) {
-    .Call('imputation_which', PACKAGE = 'imputation', x)
 }
 
 which_na <- function(x) {

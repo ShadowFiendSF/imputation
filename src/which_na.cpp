@@ -2,18 +2,18 @@
 using namespace Rcpp;
 
 // this function is a copy of R's function which.
-// [[Rcpp::export]]
-IntegerVector which(LogicalVector x) {
-  IntegerVector out;
-  for (int i = 0; i < x.size(); i++) {
-    if (x[i]) out.push_back(i);
-  }
-  return out;
-}
+// Rcpp::export]]
+//IntegerVector which(const LogicalVector& x) {
+//  IntegerVector out;
+//  for (int i = 0; i < x.size(); i++) {
+//    if (x[i]) out.push_back(i);
+//  }
+//  return out;
+//}
 
 
 // find which elements are NA in a vector - integer
-IntegerVector which_na_i(IntegerVector vec) {
+IntegerVector which_na_i(const IntegerVector& vec) {
   int n = vec.size();
   IntegerVector out;
   for (int k = 0; k < n; k++) {
@@ -23,7 +23,7 @@ IntegerVector which_na_i(IntegerVector vec) {
 }
 
 // find which elements are NA in a vector - character
-IntegerVector which_na_s(CharacterVector vec) {
+IntegerVector which_na_s(const CharacterVector& vec) {
   int n = vec.size();
   IntegerVector out;
   for (int k = 0; k < n; k++) {
@@ -33,7 +33,7 @@ IntegerVector which_na_s(CharacterVector vec) {
 }
 
 // find which elements are NA in a vector - numeric
-IntegerVector which_na_n(NumericVector vec) {
+IntegerVector which_na_n(const NumericVector& vec) {
   int n = vec.size();
   IntegerVector out;
   for (int k = 0; k < n; k++) {
@@ -43,7 +43,7 @@ IntegerVector which_na_n(NumericVector vec) {
 }
 
 // find which elements are NA in a vector - logical
-IntegerVector which_na_l(LogicalVector vec) {
+IntegerVector which_na_l(const LogicalVector& vec) {
   int n = vec.size();
   IntegerVector out;
   for (int k = 0; k < n; k++) {

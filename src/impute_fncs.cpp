@@ -41,7 +41,7 @@ double weighted_mean(NumericVector& x, NumericVector w) {
 }
 
 //-----------------------------------------------------------------------------
-IntegerVector callRfunc (NumericVector& x, Function f) {
+IntegerVector callRfunc (const NumericVector& x, const Function f) {
   IntegerVector res = f(x);
   return res;
 }
@@ -75,7 +75,7 @@ IntegerVector sort_indices(NumericVector& values) {
 // kernelMatrix(kern, c(0, smallest_distances))[1, -1, drop= TRUE]
 // in R library(kernlab)
 // [[Rcpp::export]]
-NumericVector kern_wt (double& sigma, NumericVector& x) {
+NumericVector kern_wt (const double& sigma, const NumericVector& x) {
   NumericVector ret(x.size());
 
   for (int i = 0; i < x.size(); i++) {
