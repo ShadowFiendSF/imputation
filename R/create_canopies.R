@@ -39,11 +39,11 @@ create_canopies <- function(x, n_canopies, q) {
   
   # create canopies based on distance to centroid, missing rows in top canopy
   mean_dist_q <- quantile(mean_dist, seq(0,1, 1 / (n_canopies)))
-  x2 <- data.frame(x, d_factor= cut(mean_dist, breaks= mean_dist_q, include.lowest= TRUE,
-                                    labels= FALSE))
+  x2 <- data.frame(x, d_factor= cut(mean_dist, breaks= unique(mean_dist_q), 
+                                    include.lowest= TRUE, labels= FALSE))
   
   out <- vector("list", length= n_canopies)
-  for (i in 1:n_canopies) {
+  for (i in 1:max(x2$d_factor)) {
     out[[i]] <- x2[x2$d_factor %in% c(i-1, i, i+1),]
     out[[i]] <- as.matrix(out[[i]])
   }
