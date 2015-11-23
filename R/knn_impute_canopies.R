@@ -48,7 +48,7 @@ kNN_impute.canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
   #--------------------------------------------------------
   can_id <- ncol(x)
   if (length(table(x[, can_id])) == 2) {
-    can <- ifelse(max(x[, can_id]) == n_canopies, max(x[, can_id]), min(x[, can_id]))
+    can <- ifelse(min(x[, can_id]) == 1, min(x[, can_id]), max(x[, can_id]))
   } else {
     can <- median(x[, can_id])
   }
