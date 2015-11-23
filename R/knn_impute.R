@@ -121,7 +121,7 @@ kNN_impute <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
       which_err <- which(lapply(knn, length) == 2)
       num_errors <- sum(do.call("c", lapply(knn[which_err], "[[", 2)))  
       
-      x_return <- do.call("rbind", lapply(knn, function(l) return(l$x)))
+      x_return <- do.call("rbind", lapply(knn, function(l) return(l[[1]])))
       x_return <- x_return[order(as.integer(rownames(x_return))),]
       x_return <- x_return[, -ncol(x_return)]
       # check for rownames and exit
@@ -134,7 +134,7 @@ kNN_impute <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
       }
     } 
     else { # no errors
-      x_return <- do.call("rbind", lapply(knn, function(l) return(l$x)))
+      x_return <- do.call("rbind", lapply(knn, function(l) return(l[[1]]))) # not sure why this was an error
       x_return <- x_return[order(as.integer(rownames(x_return))),]
       x_return <- x_return[, -ncol(x_return)]
       # check for rownames and exit
