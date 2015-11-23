@@ -42,7 +42,7 @@ create_canopies <- function(x, n_canopies, q) {
   x2 <- data.frame(x, d_factor= cut(mean_dist, breaks= unique(mean_dist_q), 
                                     include.lowest= TRUE, labels= FALSE))
   
-  out <- vector("list", length= n_canopies)
+  out <- vector("list", length= max(x2$d_factor))
   for (i in 1:max(x2$d_factor)) {
     out[[i]] <- x2[x2$d_factor %in% c(i-1, i, i+1),]
     out[[i]] <- as.matrix(out[[i]])
