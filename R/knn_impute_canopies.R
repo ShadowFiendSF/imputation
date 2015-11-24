@@ -94,7 +94,7 @@ kNN_impute.canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
   # 02b. Impute 
   #--------------------------------------------------------
   prelim = impute_prelim(x_can, parallel= parallel, leave_cores= leave_cores)
-  if (prelim$numMissing == 0) return (x_can) # no missing
+  if (prelim$numMissing == 0) return (list(x=x_can)) # no missing
   
   if (parallel == FALSE) {
     x_missing_imputed <- impute_fn_knn_all.nonPar(

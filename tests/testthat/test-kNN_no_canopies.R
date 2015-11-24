@@ -23,8 +23,8 @@ test_that("errors work correctly", {
   
   ## trivial case equality -- no missing
   rownames(x1) <- 1:nrow(x1)
-  expect_equal(kNN_impute.no_canopies(x1, k= 3), x1)
-  expect_equal(kNN_impute.no_canopies(x1, k= 3, parallel= FALSE), x1)
+  expect_equal(kNN_impute.no_canopies(x1, k= 3)$x, x1)
+  expect_equal(kNN_impute.no_canopies(x1, k= 3, parallel= FALSE)$x, x1)
   
   # column NA
   x1[,1] <- NA

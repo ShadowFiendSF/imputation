@@ -23,15 +23,16 @@ test_that("errors work correctly", {
   ## trivial case equality
   k1 <- kNN_impute(x1, k= 3)
   k2 <- kNN_impute(x1, k= 3, parallel= FALSE)
-  dimnames(k1) <- dimnames(k2) <-NULL
-  expect_equal(k1, x1)
-  expect_equal(k2, x1)
+  dimnames(k1$x) <- dimnames(k2$x) <-NULL
+  expect_equal(k1$x, x1)
+  expect_equal(k2$x, x1)
   # column NA
   x1[,1] <- NA
   expect_error(kNN_impute(x1, parallel= FALSE))
 })
 
-test_that("calculations same to wrapper", {
+test_that("kNN_impute returns same as both kNN_impute.no_canopies or
+          kNN_impute.canopies", {
   set.seed(34)
   x1 <- matrix(rnorm(300), 30, 10)
   x1[x1 > 1.25] <- NA
@@ -71,7 +72,8 @@ test_that("calculations same to wrapper", {
    
 })
 
-test_that("equivalence with canopies / no canopies", {
+test_that("expected equivalence with canopies / no canopies occurs. Also
+          that expected non-equivalence occurs", {
   set.seed(34)
   x1 <- matrix(rnorm(300), 30, 10)
   x1[x1 > 1.25] <- NA
@@ -115,4 +117,55 @@ test_that("equivalence with canopies / no canopies", {
   
 })
 
-
+test_that("kNN_impute handles df with existing rownames accurately", {
+  # set up ---------------------------- 
+  set.seed(34)
+  x1 <- matrix(rnorm(300), 30, 10)
+  x1[x1 > 1.25] <- NA
+  x1a <- x1
+  rownames(x1) <- 500:(500 + nrow(x1) - 1)
+  x3 <- create_canopies(x1, n_canopies= 5, q= 2)
+  x3a <- create_canopies(x1a, n_canopies= 5, q= 2)
+  
+  # testing function
+  can5 <- function(l, k, q, ...) {
+    l2 <- lapply(l, kNN_impute.canopies, k= k, q=q, verbose= FALSE, n_canopies= 5, ... = ...)
+    l2 <- do.call("rbind", lapply(l2, "[[", 1))
+    l2 <- l2[, -ncol(l2)]
+    return(l2[order(as.integer(rownames(l2))),])
+  }
+  #-----------------------------------
+  
+  expect_equal({attr(x1, "dimnames") <- NULL; x1}, x1a)
+  
+  # testing that equal other than rownames
+  #----------------------------------------
+  # test1: no canopies, parallel == FALSE
+  knn1 <- kNN_impute(x1, k=3, q=2, parallel= FALSE, verbose= FALSE, n_canopies= NULL)
+  knn2 <- kNN_impute(x1a, k=3, q=2, parallel= FALSE, verbose= FALSE, n_canopies= NULL)
+  
+  expect_equal({attr(knn1$x, "dimnames") <- NULL; knn1}, 
+               {attr(knn2$x, "dimnames") <- NULL; knn2})
+  
+  # test2: no canopies, parallel == TRUE
+  knn1 <- kNN_impute(x1, k=3, q=2, parallel= TRUE, verbose= FALSE, n_canopies= NULL)
+  knn2 <- kNN_impute(x1a, k=3, q=2, parallel= TRUE, verbose= FALSE, n_canopies= NULL)
+  
+  expect_equal({attr(knn1$x, "dimnames") <- NULL; knn1}, 
+               {attr(knn2$x, "dimnames") <- NULL; knn2})
+  
+  # test3: canopies, parallel == FALSE
+  knn1 <- kNN_impute(x1, k=3, q=2, parallel= FALSE, verbose= FALSE, n_canopies= 5)
+  knn2 <- kNN_impute(x1a, k=3, q=2, parallel= FALSE, verbose= FALSE, n_canopies= 5)
+  
+  expect_equal({attr(knn1$x, "dimnames") <- NULL; knn1}, 
+               {attr(knn2$x, "dimnames") <- NULL; knn2})
+  
+  # test4: canopies, parallel == TRUE
+  knn1 <- kNN_impute(x1, k=3, q=2, parallel= TRUE, verbose= FALSE, n_canopies= 5)
+  knn2 <- kNN_impute(x1a, k=3, q=2, parallel= TRUE, verbose= FALSE, n_canopies= 5)
+  
+  expect_equal({attr(knn1$x, "dimnames") <- NULL; knn1}, 
+               {attr(knn2$x, "dimnames") <- NULL; knn2})
+  
+})
