@@ -9,6 +9,7 @@
 # @param verbose if \code{TRUE} print status updates
 impute_fn_knn_all.nonPar <- function(x_missing, x_complete, k, q, sigma,
                                      verbose) {
+  if (!is.matrix(x_missing)) {x_missing <- matrix(x_missing, nrow=1)}
   # impute row-by-row -- non parallel
   x_missing_imputed <- t(apply(x_missing, 1, function(i) {
     rowID = as.numeric(i[1])
@@ -51,6 +52,8 @@ impute_fn_knn_all.nonPar <- function(x_missing, x_complete, k, q, sigma,
 # @param leave_cores How many cores do you wish to leave open to other processing?
 impute_fn_knn_all.Par <- function(x_missing, x_complete, k, q, sigma,
                                   leave_cores) { 
+  
+  if (!is.matrix(x_missing)) {x_missing <- matrix(x_missing, nrow=1)}
   ### [AW 10/20] resolve edge case when nnodes > nrow(x_missing)
   nnodes <- min(nrow(x_missing), detectCores() - leave_cores)
   cl <- makeCluster(nnodes)
