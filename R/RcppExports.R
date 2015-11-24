@@ -39,18 +39,6 @@ kern_wt <- function(sigma, x) {
     .Call('imputation_kern_wt', PACKAGE = 'imputation', sigma, x)
 }
 
-#' @title Imputation function for kNN
-#' @description Function for KNN imputation for a single element.
-#' Distances are weighted by a kernal function to produce a weighted
-#' imputation.
-#' @param values The values from which imputation will take place
-#' @param distances The distances associated with each value
-#' @param k The number of neighbors used to impute
-#' @param sigma The standard deviation (ie sigma parameter) of the Gaussian kernal used for weighting
-impute_fn_knn <- function(values, distances, k, sigma) {
-    .Call('imputation_impute_fn_knn', PACKAGE = 'imputation', values, distances, k, sigma)
-}
-
 int_rownames <- function(x) {
     .Call('imputation_int_rownames', PACKAGE = 'imputation', x)
 }

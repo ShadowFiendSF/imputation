@@ -86,25 +86,27 @@ NumericVector kern_wt (const double& sigma, const NumericVector& x) {
 }
 
 //-----------------------------------------------------------------------------
-//' @title Imputation function for kNN
-//' @description Function for KNN imputation for a single element.
-//' Distances are weighted by a kernal function to produce a weighted
-//' imputation.
-//' @param values The values from which imputation will take place
-//' @param distances The distances associated with each value
-//' @param k The number of neighbors used to impute
-//' @param sigma The standard deviation (ie sigma parameter) of the Gaussian kernal used for weighting
-// [[Rcpp::export]]
-double impute_fn_knn (NumericVector& values, NumericVector& distances, int& k, double& sigma) {
-  NumericVector small_dist(k), knn_values(k);
-  // IntegerVector rnks = callRfunc(x, order) - 1;
-  IntegerVector rnks = sort_indices(distances);
+// @title Imputation function for kNN
+// @description Function for KNN imputation for a single element.
+// Distances are weighted by a kernal function to produce a weighted
+// imputation.
+// @param values The values from which imputation will take place
+// @param distances The distances associated with each value
+// @param k The number of neighbors used to impute
+// @param sigma The standard deviation (ie sigma parameter) of the Gaussian kernal used for weighting
 
-  for (int i = 0; i < k; i++) {
-    small_dist[i] = distances[ rnks[i] ];
-    knn_values[i] = values[ rnks[i] ];
-  }
 
-  NumericVector d = kern_wt(sigma, small_dist);
-  return weighted_mean(knn_values, d);
-}
+// Rcpp::export]]
+//double impute_fn_knn (NumericVector& values, NumericVector& distances, int& k, double& sigma) {
+//  NumericVector small_dist(k), knn_values(k);
+//  // IntegerVector rnks = callRfunc(x, order) - 1;
+//  IntegerVector rnks = sort_indices(distances);
+//
+//  for (int i = 0; i < k; i++) {
+//    small_dist[i] = distances[ rnks[i] ];
+//    knn_values[i] = values[ rnks[i] ];
+//  }
+//
+//  NumericVector d = kern_wt(sigma, small_dist);
+//  return weighted_mean(knn_values, d);
+//}

@@ -66,20 +66,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// impute_fn_knn
-double impute_fn_knn(NumericVector& values, NumericVector& distances, int& k, double& sigma);
-RcppExport SEXP imputation_impute_fn_knn(SEXP valuesSEXP, SEXP distancesSEXP, SEXP kSEXP, SEXP sigmaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< NumericVector& >::type values(valuesSEXP);
-    Rcpp::traits::input_parameter< NumericVector& >::type distances(distancesSEXP);
-    Rcpp::traits::input_parameter< int& >::type k(kSEXP);
-    Rcpp::traits::input_parameter< double& >::type sigma(sigmaSEXP);
-    __result = Rcpp::wrap(impute_fn_knn(values, distances, k, sigma));
-    return __result;
-END_RCPP
-}
 // int_rownames
 IntegerVector int_rownames(const NumericMatrix x);
 RcppExport SEXP imputation_int_rownames(SEXP xSEXP) {
