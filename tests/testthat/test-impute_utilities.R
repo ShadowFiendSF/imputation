@@ -51,10 +51,10 @@ test_that("kern_wt returns same as kernlab", {
                imputation:::kern_wt(sigma= 1, x= x1))
   expect_equal(kernlab::kernelMatrix(kern, c(0, x2))[1, -1, drop= TRUE],
                imputation:::kern_wt(sigma= 1, x= x2))
-  expect_equal(kernlab::kernelMatrix(kern2, c(0, x))[1, -1, drop= TRUE],
-               imputation:::kern_wt(sigma= sd(x1), x= x))
-  expect_equal(kernlab::kernelMatrix(kern3, c(0, x))[1, -1, drop= TRUE],
-               imputation:::kern_wt(sigma= sd(x2), x= x))
+  expect_equal(kernlab::kernelMatrix(kern2, c(0, x1))[1, -1, drop= TRUE],
+               imputation:::kern_wt(sigma= sd(x1), x= x1))
+  expect_equal(kernlab::kernelMatrix(kern3, c(0, x2))[1, -1, drop= TRUE],
+               imputation:::kern_wt(sigma= sd(x2), x= x2))
 })
 
 
