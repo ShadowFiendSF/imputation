@@ -55,13 +55,7 @@ kNN_impute.canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
   
   x_can <- x[x[, can_id] == can,] # subset of interest
   
-  col_na <- apply(x_can[, -can_id], 2, function(j) all(is.na(j)))
-  row_na <- apply(x_can[, -can_id], 1, function(i) all(is.na(i)))
-  
-  if (any(col_na)) {
-    cat("column(s)", which(col_na), "are entirely missing.")
-    stop("Please fix missing columns.")
-  }
+    row_na <- apply(x_can[, -can_id], 1, function(i) all(is.na(i)))
   
   # 01b. Test if variables on same scale
   #--------------------------------------------------------
