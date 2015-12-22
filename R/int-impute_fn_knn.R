@@ -56,7 +56,9 @@ impute_fn_knn_all.Par <- function(x_missing, x_complete, k, q, sigma,
   if (!is.matrix(x_missing)) {x_missing <- matrix(x_missing, nrow=1)}
   ### [AW 10/20] resolve edge case when nnodes > nrow(x_missing)
   nnodes <- min(nrow(x_missing), detectCores() - leave_cores)
-  cl <- makeCluster(nnodes)
+  
+  if (grepl("Windows", sessionInfo()$running)) {cl <- makeCluster(nnodes, type= "PSOCK")}
+  else {cl <- makeCluster(nnodes, type= "FORK")}
   
   # impute row-by-row -- parallel 
   x_missing_imputed <- parRapply(cl= cl, x_missing, function(i, x_complete, sigma) {

@@ -19,7 +19,7 @@ Description: Impute missing values in a data matrix using weighted-kNN. Weights
 License: GPL
 LazyLoad: yes
 Depends:
-    locfit, kernlab (>= 0.9), parallel (>= 3.0)
+    R (>= 3.2.1), locfit, parallel (>= 3.0)
 Suggests: testthat
 LinkingTo: Rcpp
 Imports: Rcpp

@@ -21,7 +21,9 @@ impute_prelim = function(x, parallel= FALSE, leave_cores= 2) {
   } else {
     # [AW 10/20] resolve edge case when nnodes > nrow(x_missing)
     nnodes <- min(nrow(x), detectCores() - leave_cores)
-    cl <- makeCluster(nnodes)
+    
+    if (grepl("Windows", sessionInfo()$running)) {cl <- makeCluster(nnodes, type= "PSOCK")}
+    else {cl <- makeCluster(nnodes, type= "FORK")}
     
     missing_rows_indices = which(parRapply(cl= cl, x, function(i) {
       any(is.na(i))
