@@ -140,19 +140,21 @@ resolve_return <- function(knn_list, has_rownames) {
   if (all(sapply(knn_list, is.list)) & any(lapply(knn_list, length) == 2)) { # have some errors
     which_err <- which(lapply(knn_list, length) == 2)
     num_errors <- sum(do.call("c", lapply(knn_list[which_err], "[[", 2)))  
+  } else {
+    num_errors <- NULL
   }
   
   # check for rownames and exit
   if (has_rownames) {
     row_key <- row_key[rownames(x_return),]
     rownames(x_return) <- row_key$key
-    if (exists(num_errors)) {
+    if (!is.null(num_errors)) {
       return(list(x=x_return, num_errors= num_errors))
     } else {
       return(list(x=x_return))
     }
   } else {
-    if (exists(num_errors)) {
+    if (!is.null(num_errors)) {
       return(list(x=x_return, num_errors= num_errors))
     } else {
       return(list(x=x_return))
