@@ -70,7 +70,7 @@ kNN_impute.canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
   # https://en.wikipedia.org/wiki/Kernel_density_estimation#Practical_estimation_of_the_bandwidth
   opt_h <- (4 * sd(x[, -can_id], na.rm=T)^5 / (3 * nrow(x)))^(1/5)
   # kern <- rbfdot(opt_h)
-  sigma <- kpar(rbfdot(opt_h))$sigma
+  sigma <- kernlab::kpar(rbfdot(opt_h))$sigma
   
   # 02a. Impute missing rows to complete-data column means 
   #--------------------------------------------------------
