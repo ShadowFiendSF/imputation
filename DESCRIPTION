@@ -10,10 +10,7 @@ Authors@R: c(
   )
 URL: https://github.com/alexwhitworth/imputation
 Description: Impute missing values in a data matrix using weighted-kNN. Weights
-     in w-kNN are specified using a Gaussian kernel, specified by kernlab. v0.4
-     introduces parallel computing. v0.6 implements canopies (ie-subsets) with
-     approximate solutions for large datasets... Timing tests indicate that the
-     current implementation has exponential time complexity. I suggest not
+     in w-kNN are specified using a Gaussian kernel, specified by kernlab. Imputation may be done via parallel computing (v0.4). Canopies (ie-subsets) were implemented in (v0.6) and provide approximate solutions for large datasets... I suggest not
      using canopies on datasets with < ~10^5 observations and using canopies on
      datasets with > ~10^5 observations.
 License: GPL
