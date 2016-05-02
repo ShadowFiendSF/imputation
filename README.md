@@ -1,6 +1,10 @@
 imputation
 ==========
 
+[![Build Status](https://travis-ci.org/alexWhitworth/imputation.svg?branch=master)](https://travis-ci.org/alexWhitworth/imputation.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/alexWhitworth/imputation/badge.svg?branch=master)](https://coveralls.io/github/alexWhitworth/imputation?branch=master)
+
+
 Missing data imputation (also known as matrix completion) is a difficult science that tries to fill in missing values of a dataset with a best guess. Multiple methods for such problems are available (eg. mean imputation, EM, etc). This package implements missing data imputation via weighted k nearest neighbors (w-kNN).
 
 Tests on the current version indicate the algorithm runs with exponential time complexity. Of note, >=v0.6 implements canopies to speed up the runtime on large datasets. Canopies are based on the ideas in McCallum et al (2000). Canopies are based on distance to the dataset centroid. In general, since canopies overlap with their neighbors, the use of canopies reduces the time complexity from  \eqn{2^{O(n)}} to approximately \eqn{2^{O(9n / c)}} where c is the number of canopies. Since, in large datasets, c can be quite large, this is a substantial savings.
@@ -42,4 +46,3 @@ Canopies produce an approximate solution although they may produce an equivalent
 
 * k-Nearest Neighbors
 * two-stage (ie canopied) k-Nearest Neighbors
-
