@@ -6,6 +6,9 @@ notifications:
     on_success: change
     on_failure: change
 
+env:
+  - CODECOV_TOKEN=5c966b3e-a96a-4daa-bb93-c12e0b0551d2
+
 r_github_packages:
   - jimhester/covr
 
