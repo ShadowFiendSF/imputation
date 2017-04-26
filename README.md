@@ -2,7 +2,7 @@ imputation
 ==========
 
 [![Build Status](https://travis-ci.org/alexWhitworth/imputation.svg?branch=master)](https://travis-ci.org/alexWhitworth/imputation.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/alexWhitworth/imputation/badge.svg?branch=master)](https://coveralls.io/github/alexWhitworth/imputation?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/alexWhitworth/imputation/badge.svg)](https://coveralls.io/github/alexWhitworth/imputation)
 
 
 Missing data imputation (also known as matrix completion) is a difficult science that tries to fill in missing values of a dataset with a best guess. Multiple methods for such problems are available (eg. mean imputation, EM, etc). This package implements missing data imputation via weighted k nearest neighbors (w-kNN).
