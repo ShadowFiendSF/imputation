@@ -28,7 +28,7 @@ var_tests <- function(x, bonf=TRUE) {
   for (i in 1:(p-1)) {
     for (j in (i+1):p) {
       # fill lower triangular
-      ret[j,i] <- var.test(x[,i], x[,j])$p.val
+      ret[j,i] <- stats::var.test(x[,i], x[,j])$p.val
     }
   }
   if (bonf == TRUE) ret2 <- calc_i_j(ret, alpha= 0.05 / choose(p,2))

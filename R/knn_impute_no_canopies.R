@@ -25,14 +25,14 @@
 #'   kNN_impute(x, k=3, q=2)
 #' @export
 kNN_impute.no_canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
-                      parallel= TRUE, leave_cores= ifelse(detectCores() <= 4, 1, 2)) {
+                      parallel= TRUE, leave_cores= ifelse(parallel::detectCores() <= 4, 1, 2)) {
   
   # 01. Do some preliminaries -- to remove after updating tests (duplicated work)
   #--------------------------------------------------------
   if (parallel == TRUE) {
-    if (leave_cores < 0 | leave_cores > detectCores() | leave_cores %% 1 != 0) {
+    if (leave_cores < 0 | leave_cores > parallel::detectCores() | leave_cores %% 1 != 0) {
       stop("leave_cores must be an integer between 0 (not recommended) 
-           and ", detectCores())
+           and ", parallel::detectCores())
     }
   }
   
@@ -60,9 +60,9 @@ kNN_impute.no_canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
   # 01d. Get Gaussian Kernal
   #--------------------------------------------------------
   # https://en.wikipedia.org/wiki/Kernel_density_estimation#Practical_estimation_of_the_bandwidth
-  opt_h <- (4 * sd(x, na.rm=T)^5 / (3 * nrow(x)))^(1/5)
-  # kern <- rbfdot(opt_h)
-  sigma <- kernlab::kpar(rbfdot(opt_h))$sigma
+  opt_h <- (4 * stats::sd(x, na.rm=T)^5 / (3 * nrow(x)))^(1/5)
+  # kern <- kernlab::rbfdot(opt_h)
+  sigma <- kernlab::kpar(kernlab::rbfdot(opt_h))$sigma
   
   # 02a. Impute missing rows to complete-data column means 
   #--------------------------------------------------------

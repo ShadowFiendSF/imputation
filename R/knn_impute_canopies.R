@@ -26,15 +26,15 @@
 #'   kNN_impute(x, k=3, q=2)
 #' @export
 kNN_impute.canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
-                      parallel= TRUE, leave_cores= ifelse(detectCores() <= 4, 1, 2),
+                      parallel= TRUE, leave_cores= ifelse(parallel::detectCores() <= 4, 1, 2),
                       n_canopies) {
   
   # 01. Do some preliminaries -- to remove after updating tests (duplicated work)
   #--------------------------------------------------------
   if (parallel == TRUE) {
-    if (leave_cores < 0 | leave_cores > detectCores() | leave_cores %% 1 != 0) {
+    if (leave_cores < 0 | leave_cores > parallel::detectCores() | leave_cores %% 1 != 0) {
       stop("leave_cores must be an integer between 0 (not recommended) 
-           and ", detectCores())
+           and ", parallel::detectCores())
     }
   }
   
@@ -50,12 +50,12 @@ kNN_impute.canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
   if (length(table(x[, can_id])) == 2) {
     can <- ifelse(min(x[, can_id]) == 1, min(x[, can_id]), max(x[, can_id]))
   } else {
-    can <- median(x[, can_id])
+    can <- stats::median(x[, can_id])
   }
   
   x_can <- x[x[, can_id] == can,] # subset of interest
   
-    row_na <- apply(x_can[, -can_id], 1, function(i) all(is.na(i)))
+  row_na <- apply(x_can[, -can_id], 1, function(i) all(is.na(i)))
   
   # 01b. Test if variables on same scale
   #--------------------------------------------------------
@@ -68,9 +68,9 @@ kNN_impute.canopies <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
   # 01d. Get Gaussian Kernal
   #--------------------------------------------------------
   # https://en.wikipedia.org/wiki/Kernel_density_estimation#Practical_estimation_of_the_bandwidth
-  opt_h <- (4 * sd(x[, -can_id], na.rm=T)^5 / (3 * nrow(x)))^(1/5)
+  opt_h <- (4 * stats::sd(x[, -can_id], na.rm=T)^5 / (3 * nrow(x)))^(1/5)
   # kern <- rbfdot(opt_h)
-  sigma <- kernlab::kpar(rbfdot(opt_h))$sigma
+  sigma <- kernlab::kpar(kernlab::rbfdot(opt_h))$sigma
   
   # 02a. Impute missing rows to complete-data column means 
   #--------------------------------------------------------

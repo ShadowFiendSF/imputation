@@ -51,13 +51,13 @@
 #' @export
 
 kNN_impute <- function(x, k, q= 2, verbose=TRUE, check_scale= TRUE,
-                       parallel= TRUE, leave_cores= ifelse(detectCores() <= 4, 1, 2),
+                       parallel= TRUE, leave_cores= ifelse(parallel::detectCores() <= 4, 1, 2),
                        n_canopies= NULL) {
   
   # 01. Do some preliminaries
   #--------------------------------------------------------
   if (parallel == TRUE) {
-    if (leave_cores < 0 | leave_cores > detectCores() | leave_cores %% 1 != 0) {
+    if (leave_cores < 0 | leave_cores > parallel::detectCores() | leave_cores %% 1 != 0) {
       stop("leave_cores must be an integer between 0 (not recommended) 
            and ", detectCores())
     }

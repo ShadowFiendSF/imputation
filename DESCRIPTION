@@ -1,7 +1,7 @@
 Package: imputation
 Type: Package
 Title: Missing Value imputation via weighted k-nearest neighbors (w-kNN)
-Version: 0.7.5
+Version: 0.7.6
 Date: 2017-04-24
 Authors@R: c(
   person("Alex", "Whitworth", email = "whitworth.alex@gmail.com",
@@ -9,14 +9,22 @@ Authors@R: c(
   person("Marcel", "Prince", email= "mprince@dandb.com", role= "ctb")
   )
 URL: https://github.com/alexwhitworth/imputation
-Description: Impute missing values in a data matrix using weighted-kNN. Weights
-     in w-kNN are specified using a Gaussian kernel, specified by kernlab. Imputation may be done via parallel computing (v0.4). Canopies (ie-subsets) were implemented in (v0.6) and provide approximate solutions for large datasets... I suggest not
-     using canopies on datasets with < ~10^5 observations and using canopies on
-     datasets with > ~10^5 observations.
+Description: Impute missing values in a data matrix using weighted-kNN.
+    Weights in w-kNN are specified using a Gaussian kernel, specified by kernlab.
+    Imputation may be done via parallel computing (v0.4). Canopies (ie-subsets) were
+    implemented in (v0.6) and provide approximate solutions for large datasets...
+    I suggest not using canopies on datasets with < ~10^5 observations and using
+    canopies on datasets with > ~10^5 observations.
 License: GPL
 LazyLoad: yes
 Depends:
-    R (>= 3.2.1), locfit, parallel (>= 3.0), kernlab
-Suggests: testthat
+    R (>= 3.2.1),
+    locfit,
+    kernlab,
+    parallel (>= 3.0)
+Suggests:
+    testthat
 LinkingTo: Rcpp
-Imports: Rcpp
+Imports:
+    Rcpp
+RoxygenNote: 5.0.1

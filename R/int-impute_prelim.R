@@ -19,20 +19,19 @@ impute_prelim = function(x, parallel= FALSE, leave_cores= 2) {
       any(is.na(j))
     }))
   } else {
-    # [AW 10/20] resolve edge case when nnodes > nrow(x_missing)
-    nnodes <- min(nrow(x), detectCores() - leave_cores)
+    nnodes <- min(nrow(x), parallel::detectCores() - leave_cores)
     
-    if (grepl("Windows", sessionInfo()$running)) {cl <- makeCluster(nnodes, type= "PSOCK")}
-    else {cl <- makeCluster(nnodes, type= "FORK")}
+    if (grepl("Windows", utils::sessionInfo()$running)) {cl <- parallel::makeCluster(nnodes, type= "PSOCK")}
+    else {cl <- parallel::makeCluster(nnodes, type= "FORK")}
     
-    missing_rows_indices = which(parRapply(cl= cl, x, function(i) {
+    missing_rows_indices = which(parallel::parRapply(cl= cl, x, function(i) {
       any(is.na(i))
     }))
-    missing_cols_indices = which(parCapply(cl= cl, x, function(j) {
+    missing_cols_indices = which(parallel::parCapply(cl= cl, x, function(j) {
       any(is.na(j))
     }))
     
-    stopCluster(cl)
+    parallel::stopCluster(cl)
   }
   
   

@@ -38,7 +38,7 @@ create_canopies <- function(x, n_canopies, q) {
   mean_dist <- ifelse(is.na(mean_dist) | is.nan(mean_dist), 10e5, mean_dist)
   
   # create canopies based on distance to centroid, missing rows in top canopy
-  mean_dist_q <- quantile(mean_dist, seq(0,1, 1 / (n_canopies)))
+  mean_dist_q <- stats::quantile(mean_dist, seq(0,1, 1 / (n_canopies)))
   x2 <- data.frame(x, d_factor= cut(mean_dist, breaks= unique(mean_dist_q), 
                                     include.lowest= TRUE, labels= FALSE))
   
